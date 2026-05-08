@@ -207,6 +207,7 @@ public :
     bool peekVoiceStatus();
     int updateProgramFromSysex(const uint8 *rawdata);
     void setupStartupCart();
+    void loadCartByValue(int value);
     
     //==============================================================================
     const String getName() const override;

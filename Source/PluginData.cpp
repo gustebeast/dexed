@@ -220,6 +220,15 @@ void DexedAudioProcessor::setupStartupCart() {
     delete builtin_pgm;
 }
 
+void DexedAudioProcessor::loadCartByValue(int value) {
+    File startup = dexedCartDir.getChildFile(std::to_string(value) + ".syx");
+
+    if ( currentCart.load(startup) != -1 ) {
+        loadCartridge(currentCart);
+        setCurrentProgram(0);
+    }
+}
+
 void DexedAudioProcessor::resetToInitVoice() {
     const char init_voice[] =
       { 99, 99, 99, 99, 99, 99, 99, 00, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 7,

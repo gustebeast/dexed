@@ -407,6 +407,9 @@ void DexedAudioProcessor::processMidiMessage(const MidiMessage *msg) {
                 case 5:
                     controllers.portamento_cc = value;
                     break;
+                case 9:
+                    loadCartByValue(value);
+                    break;
                 case 64:
                     sustain = value > 63;
                     if (!sustain) {
