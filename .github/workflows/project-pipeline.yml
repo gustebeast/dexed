@@ -135,10 +135,10 @@ jobs:
         cmake -S . -B ./build -DCMAKE_BUILD_TYPE=$TYPE -DBUILD_ID=${{ needs.component_version.outputs.build_version }} -DJUCE_COPY_PLUGIN_AFTER_BUILD=FALSE
         cmake --build ./build --config $TYPE --target Dexed_All --parallel 3
         mkdir -p build/installer
-        ART="build/Dexed_artefacts/$TYPE"
-        for fmt in VST3 AU CLAP Standalone; do
-          if [ -d "$ART/$fmt" ]; then cp -R "$ART/$fmt"/* build/installer/ || true; fi
-        done
+        echo "--- artefacts found ---"
+        find build -maxdepth 6 -type d \( -name '*.vst3' -o -name '*.component' -o -name '*.app' -o -name '*.clap' \) -print
+        find build -maxdepth 6 -type d \( -name '*.vst3' -o -name '*.component' -o -name '*.app' -o -name '*.clap' \) -exec cp -R {} build/installer/ \;
+        echo "--- installer dir ---"
         ls -la build/installer/
 
     - name: Upload
